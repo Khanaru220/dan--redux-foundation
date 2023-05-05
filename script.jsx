@@ -38,13 +38,20 @@ const createStore = (reducer) => {
 	return { getState, dispatch, subscribe };
 };
 
+const Counter = ({ value }) => {
+	return <h1>{value}</h1>;
+};
+
+const render = () => {
+	ReactDOM.render(
+		<Counter value={store.getState()} />,
+		document.getElementById('root')
+	);
+};
+
 const store = createStore(counter);
 
-console.log(store.getState());
-
-store.subscribe(() => {
-	document.body.innerText = store.getState();
-});
+store.subscribe(render);
 
 // inital trigger subscribe() to display UI
 store.dispatch({});
