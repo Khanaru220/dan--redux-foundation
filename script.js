@@ -46,6 +46,7 @@ store.subscribe(() => {
 	document.body.innerText = store.getState();
 });
 
+// inital trigger subscribe() to display UI
 store.dispatch({});
 
 document.addEventListener('click', () => {
