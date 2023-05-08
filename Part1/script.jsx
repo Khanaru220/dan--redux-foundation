@@ -38,13 +38,27 @@ const createStore = (reducer) => {
 	return { getState, dispatch, subscribe };
 };
 
-const Counter = ({ value }) => {
-	return <h1>{value}</h1>;
+const Counter = ({ value, onIncrement, onDecrement }) => {
+	return (
+		<div>
+			<h1>{value}</h1>
+			<button onClick={onIncrement}>+</button>
+			<button onClick={onDecrement}>-</button>
+		</div>
+	);
 };
 
 const render = () => {
 	ReactDOM.render(
-		<Counter value={store.getState()} />,
+		<Counter
+			value={store.getState()}
+			onIncrement={() => {
+				store.dispatch({ type: 'INCREMENT' });
+			}}
+			onDecrement={() => {
+				store.dispatch({ type: 'DECREMENT' });
+			}}
+		/>,
 		document.getElementById('root')
 	);
 };
@@ -55,7 +69,3 @@ store.subscribe(render);
 
 // inital trigger subscribe() to display UI
 store.dispatch({});
-
-document.addEventListener('click', () => {
-	store.dispatch({ type: 'INCREMENT' });
-});
